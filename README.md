@@ -1,103 +1,224 @@
-Evaluating the Accuracy–Security–Performance Trade-offs in Non-Interactive Secure Transformer Inference
-Course: Cryptography Project
-Team members: Khushboo Pandey and Dhruv
 
-About the project
-For this project, we want to understand how homomorphic encryption can be used to run parts of a Transformer model without first decrypting the input.
+# Evaluating the Accuracy–Security–Performance Trade-offs in Non-Interactive Secure Transformer Inference
 
-Our main reference is the paper NEXUS: Secure Transformer Inference Made Non-interactive. It explores how a server can perform computations on encrypted data while keeping the client's input private.
+## Project Information
 
-We plan to study the security ideas behind this approach and build a smaller version that we can test for our course project. In particular, we want to see how different CKKS settings affect the output, how long encrypted computation takes, and how close the decrypted result is to the normal, unencrypted result.
+- **Course:** Cryptography
+- **Project Type:** Research and Implementation
+- **Team Members:**
+  - Khushboo Pandey
+  - Dhruv
 
-We are still deciding how much of the Transformer workflow we can implement. We will start with a small CKKS example and then choose a realistic next step.
-What we want to learn
-- How homomorphic encryption works, especially the CKKS scheme.
-- What information is protected when a client sends encrypted data to a server.
-- What the server might still observe, such as message size and execution time.
-- How CKKS parameters affect computation time and numerical error.
-- How encrypted results compare with normal, unencrypted computation.
-Our planned approach
-1. Read the NEXUS paper. Understand its protocol, security assumptions, and implementation.
-2. Define the threat model. Identify what the client wants to keep private, what the server can access, and what our prototype does not protect.
-3. Set up a plaintext baseline. Use a small pretrained Transformer model for a classification task so we have normal outputs for comparison.
-4. Try CKKS. Use an open-source homomorphic encryption library to encrypt input values, perform a supported computation, and decrypt the result.
-5. Compare the results. Measure numerical differences, prediction agreement where applicable, and execution time.
-6. Test different settings. Compare a small number of valid CKKS configurations and record their security settings and performance.
-7. Write up our findings. Explain the results, limitations, and possible improvements.
-The exact operations we encrypt will depend on what we can implement and test. If our prototype encrypts only selected operations or a small model component, we will say so clearly. We will not describe that as fully encrypted end-to-end Transformer inference.
-Tools and resources
-Tool or resource	How we plan to use it
-NEXUS paper	Main research reference
-NEXUS source code	Understand the authors' implementation
-OpenFHE	Experiment with CKKS homomorphic encryption
-PyTorch	Run the machine learning baseline
-Hugging Face Transformers	Load and run a pretrained model
-DistilBERT SST-2	Possible starting model for sentiment classification
-GLUE dataset	Possible source of SST-2 evaluation examples
+## About the Project
 
+In this project, we are studying how Transformer models can be used while keeping input data private. We are focusing on a research paper called **"NEXUS: Secure Transformer Inference Made Non-interactive."**
 
-We do not plan to use a paid LLM API. We will use open-source software and publicly available model weights. We plan to develop locally first. AWS is optional and will only be used if an eligible free option is available and it does not create charges.
-What we plan to measure
-- Time for key generation, encryption, evaluation, and decryption.
-- Difference between plaintext and decrypted numerical outputs.
-- Prediction agreement and classification metrics, if supported by the implemented model path.
-- Size of the encrypted data sent to and returned from the server.
-- Memory use during experiments.
-- CKKS parameters and the security level reported for each configuration.
-We will record the hardware and software versions so that our experiments can be understood and repeated.
-Who is working on what?
-Khushboo Pandey
+Normally, when someone uses a machine learning model through a remote service, they need to send their input to the server. This can create privacy concerns because the server may be able to see the user's data.
+
+One possible solution is Homomorphic Encryption (HE). It allows certain computations to be performed on encrypted data without first decrypting it.
+
+Our goal is to understand the techniques used in the NEXUS paper and build a small prototype to explore the trade-offs between accuracy, security, and performance.
+
+We are not trying to reproduce the complete NEXUS system. Instead, we will focus on selected operations that we can implement and evaluate within the time and resources available for this course.
+
+## Project Objectives
+
+Through this project, we want to:
+
+- Understand how Homomorphic Encryption works.
+- Learn about the CKKS encryption scheme and its use in machine learning.
+- Study the security model and design of the NEXUS paper.
+- Compare normal Transformer inference with selected encrypted computations.
+- Measure the effect of encryption on accuracy and performance.
+- Understand the limitations of using Homomorphic Encryption for Transformer inference.
+
+## Our Approach
+
+We plan to work on the project in the following stages.
+
+### 1. Understand the Research Paper
+
+We will first study the NEXUS paper to understand:
+
+- The problem it is trying to solve.
+- How non-interactive secure inference works.
+- The role of Homomorphic Encryption.
+- The security assumptions and limitations.
+- The performance improvements discussed in the paper.
+
+### 2. Set Up the Environment
+
+We will set up the required tools and libraries on our local machines.
+
+Our initial tools include:
+
+- Python
+- OpenFHE
+- PyTorch
+- Hugging Face Transformers
+- Jupyter Notebook
+- Git and GitHub
+
+We will start with local CPU-based experiments and consider cloud resources only if needed.
+
+### 3. Build a Plaintext Baseline
+
+Before implementing encrypted computations, we will run a Transformer model without encryption.
+
+We are considering DistilBERT fine-tuned on the SST-2 sentiment classification dataset.
+
+This will give us a baseline for:
+- Model accuracy
+- Inference time
+- Memory usage
+
+### 4. Explore Homomorphic Encryption
+
+We will study and experiment with the CKKS encryption scheme using OpenFHE.
+
+We will explore how selected computations can be performed on encrypted values and understand the effect of encryption parameters on the results.
+
+### 5. Implement a Small Prototype
+
+We will try to implement selected encrypted operations related to Transformer inference.
+
+The exact implementation scope will depend on what we can successfully support with the available libraries and resources.
+
+We will clearly document which operations are encrypted and which operations, if any, are performed in plaintext.
+
+### 6. Run Experiments
+
+We will compare the plaintext baseline with our encrypted prototype.
+
+The measurements we plan to collect include:
+
+- Accuracy and numerical error
+- Inference or computation time
+- Encryption and decryption time
+- Memory usage
+- Ciphertext size
+- Impact of different CKKS parameters
+
+### 7. Analyze the Results
+
+Finally, we will study the results and discuss the trade-offs between accuracy, security, and performance.
+
+We will also document implementation challenges and limitations.
+
+## Tools and Technologies
+
+| Tool | Purpose |
+|---|---|
+| Python | Main programming language |
+| OpenFHE | Homomorphic Encryption experiments |
+| PyTorch | Machine learning framework |
+| Hugging Face Transformers | Pretrained Transformer models |
+| DistilBERT | Candidate model for sentiment classification |
+| SST-2 | Sentiment classification dataset |
+| Jupyter Notebook | Experiments and analysis |
+| GitHub | Version control and collaboration |
+
+## Team Responsibilities
+
+### Khushboo Pandey
+
 - Set up the project repository and development environment.
-- Explore the NEXUS implementation and its setup requirements.
-- Set up OpenFHE and try a basic CKKS encrypt/evaluate/decrypt example.
-- Work on the encrypted computation and experiment scripts.
-- Record runtime, memory, and ciphertext-size measurements.
-Dhruv
-- Study the NEXUS protocol and its security assumptions.
-- Prepare the threat model and explain what is and is not protected.
-- Set up the plaintext Transformer model and evaluation data.
-- Record baseline predictions and metrics.
-- Help compare the plaintext and encrypted results.
-Work we will do together
-We will agree on the final implementation scope, check each other's results, review the security claims, analyze the experiments, and prepare the final report and presentation. These are our planned responsibilities, and we will update them as the project develops.
-Repository layout
+- Explore the NEXUS implementation and its dependencies.
+- Work on the OpenFHE and CKKS experiments.
+- Implement selected encrypted computations.
+- Measure encryption-related performance metrics.
+
+### Dhruv
+
+- Study the NEXUS paper and its security model.
+- Work on the plaintext Transformer baseline.
+- Explore the dataset and evaluation metrics.
+- Help analyze accuracy and numerical differences.
+- Document the security assumptions and limitations.
+
+### Shared Responsibilities
+
+- Finalize the implementation scope.
+- Review each other's work.
+- Run and validate experiments.
+- Compare the results.
+- Prepare the final report and presentation.
+
+## Repository Structure
+
+```text
 secure-transformer-inference-tradeoffs/
+│
 ├── README.md
 ├── PROJECT_PLAN.md
+│
 ├── docs/
 │   ├── paper-notes.md
 │   ├── threat-model.md
 │   └── protocol-design.md
+│
 ├── configs/
 │   └── ckks/
+│
 ├── data/
 │   └── README.md
+│
 ├── src/
 │   ├── plaintext/
 │   ├── he/
 │   └── evaluation/
+│
 ├── experiments/
+│
 ├── results/
 │   ├── raw/
 │   └── figures/
+│
 ├── tests/
+│
 └── report/
-We will add files and folders as we need them. We will not upload large model files, private data, secret keys, or AWS credentials to GitHub.
-Current progress
-This repository is where we will organize our reading, implementation, and experiments. We will update this checklist as we complete each part.
-- [ ] Read and take notes on the NEXUS paper.
-- [ ] Write the threat model.
+    └── final-report.md
+```
+
+## Current Progress
+
+- [x] Selected the research paper.
+- [x] Finalized the project topic.
+- [x] Created the GitHub repository.
+- [ ] Complete the detailed paper review.
+- [ ] Finalize the threat model.
 - [ ] Set up the development environment.
-- [ ] Run the plaintext model baseline.
-- [ ] Run a basic CKKS example.
-- [ ] Choose and implement the first encrypted operation.
-- [ ] Run the comparison experiments.
-- [ ] Prepare the final report.
-References
-1. NEXUS: Secure Transformer Inference Made Non-interactive — NDSS
-2. NEXUS source code
-3. OpenFHE documentation
-4. OpenFHE source code
-5. DistilBERT SST-2 model
-6. GLUE dataset
-This README describes our current plan. We will update it as we make implementation decisions and get experimental results.
+- [ ] Run the plaintext Transformer baseline.
+- [ ] Explore CKKS using OpenFHE.
+- [ ] Implement the selected encrypted operations.
+- [ ] Run experiments and collect results.
+- [ ] Analyze the accuracy, security, and performance trade-offs.
+- [ ] Complete the final report and presentation.
+
+## References
+
+1. **NEXUS: Secure Transformer Inference Made Non-interactive**  
+   https://www.ndss-symposium.org/ndss-paper/secure-transformer-inference-made-non-interactive/
+
+2. **NEXUS GitHub Repository**  
+   https://github.com/zju-abclab/NEXUS
+
+3. **OpenFHE GitHub Repository**  
+   https://github.com/openfheorg/openfhe-development
+
+4. **OpenFHE Documentation**  
+   https://openfhe-development.readthedocs.io/
+
+5. **DistilBERT Fine-tuned on SST-2**  
+   https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english
+
+6. **GLUE Dataset**  
+   https://huggingface.co/datasets/nyu-mll/glue
+
+---
+
+## Note
+
+This project is currently in the research and implementation stage. The final implementation and experiments may change depending on the results of our initial testing.
+
+We will update this README as the project progresses.
